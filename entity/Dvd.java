@@ -4,20 +4,20 @@ public class Dvd extends Item {
 
     //attribut
 
-    private String title;
-    private String description;
-    private int length;
+    protected double basePrice;
+    protected int length;
 
-    public Dvd (String name, int price, String title, String description, int length)
-        {super(name,price);
-        this.title =title;
-        this.description = description;
-        this.length = length;
+    public Dvd() {}
+
+    public Dvd(String title, double basePrice, int length){
+            super(title);
+            this.basePrice = basePrice;
+            this.length = length;
         }
-        public String getTitle() {return title;}
-        public void setTitle(String title) {this.title = title;}
-        public String getDescription() {return description;}
-        public void setDescription(String description) {this.description = description;}
-        public int getLength() {return length;}
-        public void setLength(int length) {this.length = length;}
-}
+
+        @Override
+        public double getPricePerDay () {
+            return basePrice;
+        }
+
+    }

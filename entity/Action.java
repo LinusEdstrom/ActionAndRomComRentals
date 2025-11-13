@@ -7,15 +7,22 @@ public class Action extends Dvd {
     private int explosions;
     private int coolOneliners;
 
-        public Action(String name, int price, String title, String description, int length, int explosions, int coolOneliners){
-        super(name, price, title, description, length);
+        public Action() {}
+
+        public Action(String title, double basePrice, int length, int explosions, int coolOneliners){
+        super(title, basePrice, length);
         this.explosions = explosions;
         this.coolOneliners = coolOneliners;
     }
+    // Den här ska nog bort
 
-
+        public double getPrice (){
+        return basePrice;
+    }
+    public int getLength(){return length;}
+    public void setLength(int length){this.length = length;}
     public int getExplosions() {return explosions;}
     public void setExplosions(int explosions) {this.explosions = explosions;}
     public int getCoolOneliners() {return coolOneliners;}
-    public void setCoolOneliners() {this.coolOneliners = coolOneliners;}
+    public void setCoolOneliners(int coolOneliners) {this.coolOneliners = coolOneliners;}
 }

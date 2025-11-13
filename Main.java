@@ -1,15 +1,12 @@
 package com.Linus;
 
 import com.Linus.database.Inventory;
-import com.Linus.entity.Action;
-import com.Linus.entity.Dvd;
-import com.Linus.entity.Item;
-import com.Linus.entity.Member;
+import com.Linus.entity.*;
 import com.Linus.service.MembershipService;
 import com.Linus.database.MemberRegistry;
 import com.Linus.service.RentalService;
 
-import java.sql.SQLOutput;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,86 +20,263 @@ public class Main {
         Inventory inventory = new Inventory();
         RentalService rentalService = new RentalService(inventory);
         fillMemberList(membershipService);
+        fillActionList(rentalService);
+        fillRomComList(rentalService);
 
         Scanner scanner = new Scanner(System.in);
         boolean toMeny = true;
 
-        while(toMeny) {
+        while (toMeny) {
             System.out.println("Menu choices");
+            System.out.println("");
+            System.out.println("1. Add new member");
+            System.out.println("2. Search member");
+            System.out.println("3. Change status level");
+            System.out.println("4. List all members");
+            System.out.println("");
+            System.out.println("5. List all movies");
+            System.out.println("6. List all action movies");
+            System.out.println("7. List all romCom movies");
+            System.out.println("");
+            System.out.println("8. Add new action movie");
+            System.out.println("9. Add new romCom movie");
+            System.out.println("");
+            System.out.println("10.Rent a movie");
+            System.out.println("11.Return a movie");
+            System.out.println("");
+            System.out.println("12. Exit menu");
+            System.out.println("13. Sum revenues");
 
             int choice = scanner.nextInt();
 
-
             switch (choice) {
-                case 1: newDude(scanner, membershipService); break;
-                case 2: listAllMembers(membershipService); break;
-                case 3: searchMember(scanner, membershipService); break;
-                case 4: addNewAction(scanner, rentalService); break;
-                case 5: toMeny = false;  break;
+                case 1: newMember(scanner, membershipService);
+                    break;
+                case 2: searchMember(scanner, membershipService);
+                    break;
+
+                case 3: changeStatusLevel(scanner, membershipService);
+
+                case 4: listAllMembers(membershipService);
+                    break;
+
+                case 5: listAllDvds(rentalService);
+                    break;
+                case 6: listAllAction(rentalService);
+                    break;
+
+                case 7: listAllRomCom(rentalService);
+                    break;
+
+                case 8: addNewAction(scanner, rentalService);
+                    break;
+                case 9: addNewRomCom(scanner, rentalService);
+                    break;
+                case 10:
+                    rentDvd(scanner, memberRegistry, rentalService);
+                    break;
+                case 11:
+                    returnDvd(scanner, rentalService);
+                    break;
+                case 12:
+                    toMeny = false;
+                    break;
+                case 13:
+                    returnDvd(scanner, rentalService);
+                    break;
+
             }
 
         }
 
-}
+    }
 
-        //Metoder för newDude, listAllMembers, searchMember och changeMember
-        //Försöker göra så att bara Main har kontakt med användaren för att koppla vidare till MembershipService.
+    private static void rentDvd(Scanner scanner, MemberRegistry memberRegistry, RentalService rentalService) {
+        System.out.println("Member Id: ");
+        long memberId = scanner.nextLong();
+        scanner.nextLine();
 
-    private static void newDude(Scanner scanner, MembershipService membershipService) {
+        Member rentMember = memberRegistry.findById(memberId);
+
+        System.out.println("Title to rent: ");
+        String title = scanner.nextLine();
+
+        System.out.println("How many days: ");
+        int days = scanner.nextInt();
+        scanner.nextLine();
+
+        Rental tryRental = rentalService.rentItem(rentMember, title, days);
+        if (tryRental != null) {
+            System.out.println("Rented " +title);
+        } /*else {
+            System.out.println("Rental not found");
+        }
+        */
+    }
+
+    private static void returnDvd(Scanner scanner, RentalService rentalService) {
+        scanner.nextLine();
+        System.out.println("Titel: ");
+        rentalService.returnItem(scanner.nextLine().trim());
+    }
+
+    private static void newMember(Scanner scanner, MembershipService membershipService) {
         System.out.println("member Name");
         String name = scanner.next();
         System.out.println("member Status");
-        int status = scanner.nextInt();
-        Member member = membershipService.addMember(name, status);
+        String status = scanner.next();
+        membershipService.registerMember(name, status);
     }
-    private static void listAllMembers(MembershipService membershipService) {
-        for(Member allMembers : membershipService.listAllMembers()) {
-            System.out.println(allMembers.getName()); }
+
+        private static void listAllMembers(MembershipService membershipService) {
+        for (Member allMembers : membershipService.listAllMembers())
+            System.out.println(allMembers.getName());
 
     }
-        private static void searchMember(Scanner scanner, MembershipService membershipService) {
+
+    private static void searchMember(Scanner scanner, MembershipService membershipService) {
         System.out.println("member Name");
         String name = scanner.next();
         boolean exist = membershipService.lookForMember(name);
-        if(exist) {System.out.println("Member exists");
-        }else{System.out.println("Member does not exist");}
-    }
-        private static void fillMemberList(MembershipService membershipService) {
-            membershipService.addMember("Gunnar", 2);
-            membershipService.addMember("Lisa", 1);
-            membershipService.addMember("Thor", 3);
-            membershipService.addMember("KentJesus", 1);
-            membershipService.addMember("Majken", 2);
-    }
-        /*private static void addNewItem(Scanner scanner, RentalService rentalService) {
-            System.out.println("Item name");
-            String name = scanner.next();
-            System.out.println("Item price");
-            int price = scanner.nextInt();
-            System.out.println("Item title");
-            String title = scanner.next();
-            System.out.println("Item description");
-            String description = scanner.next();
-            System.out.println("Item length");
-            int length = scanner.nextInt();
-            Dvd dvd = rentalService.addItem(name, price, title, description, length);
+        if (exist) {
+            System.out.println("Member exists");
+        } else {
+            System.out.println("Member does not exist");
         }
+    }
 
-         */
+    private static void changeStatusLevel(Scanner scanner, MembershipService membershipService) {
+        System.out.println("member name");
+        String name = (scanner.nextLine());
+        System.out.println("New statuslevel");
+        String newStatusLevel = scanner.nextLine();
+        membershipService.changeStatus(name, newStatusLevel);
+    }
+
+    private static void addNewAction(Scanner scanner, RentalService rentalService) {
+
+    System.out.println("Item title");
+    String title = scanner.nextLine();
+    System.out.println("Item pricePerDay");
+    double price = Double.parseDouble(scanner.nextLine());
+    System.out.println("Item length");
+    int length = Integer.parseInt(scanner.nextLine());
+    System.out.println("Item explosions");
+    int explosions = Integer.parseInt(scanner.nextLine());
+    System.out.println("Item coolOneliners");
+    int coolOneliners = Integer.parseInt(scanner.nextLine());
+    rentalService.addAction(title, price, length, explosions, coolOneliners);
+}
+    private static void fillActionList(RentalService rentalService) {
+    rentalService.addAction ("WarZone", 38, 120, 18, 13);
+    rentalService.addAction("BloodAndMoney", 28, 105, 4, 6);
+    rentalService.addAction("BackInOmaha", 38, 140, 28, 22);
+}
+
+    private static void addNewRomCom(Scanner scanner, RentalService rentalService) {
+    System.out.println("Item title");
+    String title = scanner.nextLine();
+    System.out.println("Item pricePerDay");
+    double price = Double.parseDouble(scanner.nextLine());
+    System.out.println("Item length");
+    int length = Integer.parseInt(scanner.nextLine());
+    System.out.println("Item explosions");
+    int cheeziness = Integer.parseInt(scanner.nextLine());
+    System.out.println("Item coolOneliners");
+    int hunks = Integer.parseInt(scanner.nextLine());
+    rentalService.addRomCom(title, price, length, cheeziness, hunks);
+}
+    private static void fillRomComList(RentalService rentalService) {
+    rentalService.addRomCom("mr.Gingerbread", 48, 162, 42, 1);
+    rentalService.addRomCom("Paris in spring", 58, 205, 68, 3);
+    rentalService.addRomCom("Two boys in red", 48, 184, 32, 2);
+}
+
+    private static void fillMemberList(MembershipService membershipService) {
+        membershipService.registerMember("Ofelia", "standard");
+        membershipService.registerMember("Lisa", "premium");
+        membershipService.registerMember("Thor", "student");
+        membershipService.registerMember("KentJesus", "student");
+        membershipService.registerMember("Majken", "standard");
+    }
+
+    private static void listAllDvds(RentalService rentalService){
+        rentalService.listDvds();
+        for (Dvd dvds : rentalService.listDvds())
+            System.out.println(dvds.getTitle());
+    }
+    private static void listAllAction(RentalService rentalService){
+        rentalService.listAction();
+        for(Action action : rentalService.listAction())
+            System.out.println(action.getTitle());
+    }
+    private static void listAllRomCom(RentalService rentalService){
+        rentalService.listRomCom();
+        for(RomCom romCom : rentalService.listRomCom())
+            System.out.println(romCom.getTitle());
+    }
+    /*
+    private static void fillActionList(RentalService rentalService) {
+        rentalService.addAction(1,"Dvd", 38, "WarZone", "Awesome", 120, 18, 13);
+        rentalService.addAction(2,"Dvd", 38, "BloodAndMoney", "So and so", 105, 4, 6);
+        rentalService.addAction(3,"Dvd", 38, "BackInOmaha", "Epic", 140, 28, 22);
+    }
+    private static void fillRomComList(RentalService rentalService) {
+        rentalService.addRomCom(4,"Dvd", 38, "mr.Gingerbread", "So freakin cute", 162, 42, 1);
+        rentalService.addRomCom(5,"Dvd", 38, "Paris in spring", "Lovely", 205, 68, 3);
+        rentalService.addRomCom(6,"Dvd", 38, "Two boys in red", "Less is more", 184, 32, 2);
+    }
+
         private static void addNewAction(Scanner scanner, RentalService rentalService) {
-            Action action = new Action();
-            System.out.println("Item name");
-            action.setName(scanner.next());
-            System.out.println("Item price");
-            action.setPrice(scanner.nextInt());
+
             System.out.println("Item title");
-            action.setTitle(scanner.next());
-            System.out.println("Item description");
-            action.setDescription(scanner.next());
+            String title = scanner.nextLine();
+            System.out.println("Item price");
+            Double price = double.parseDouble(scanner.nextLine());
             System.out.println("Item length");
-            action.setLength(scanner.nextInt());
+            int length = Integer.parseInt(scanner.nextLine());
             System.out.println("Item explosions");
-            rentalService.addAction();
+            int explosions = Integer.parseInt(scanner.nextLine());
+            System.out.println("Item coolOneliners");
+            int coolOneliners = Integer.parseInt(scanner.nextLine());
+            rentalService.addAction(title, price, length, explosions, coolOneliners);
+    }
+    private static void addNewRomCom(Scanner scanner, RentalService rentalService) {
+        RomCom romCom = new RomCom();
+        System.out.println("Item title");
+        String title = scanner.nextLine();
+        System.out.println("Item price");
+        Double price = scanner.nextDouble();
+        System.out.println("Item length");
+        int length = scanner.nextInt();
+        System.out.println("Item cheeziness");
+        romCom.setCheeziness(scanner.nextInt());
+        System.out.println("Item hunks");
+        romCom.setHunks(scanner.nextInt());
+        rentalService.addRomCom(romCom.getTitle(), romCom.getPrice(), romCom.getLength(), romCom.getCheeziness(), romCom.getHunks());
+    }
+            //Får bara fram Superklassen Items attribut här, vill ha tag i sub/sub title.
+
+        // Listor
+
+        private static void listAllDvds(RentalService rentalService){
+            rentalService.listDvds();
+            for (Dvd dvds : rentalService.listDvds())
+                System.out.println(dvds.getTitle());
+        }
+        private static void listAllAction(RentalService rentalService){
+            rentalService.listAction();
+            for(Action action : rentalService.listAction())
+                System.out.println(action.getTitle());
+        }
+        private static void listAllRomCom(RentalService rentalService){
+            rentalService.listRomCom();
+            for(RomCom romCom : rentalService.listRomCom())
+                System.out.println(romCom.getTitle());
         }
 
-    }
+     */
+
+
+}
+

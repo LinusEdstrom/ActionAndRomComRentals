@@ -8,25 +8,22 @@ public class MemberRegistry {
 
     public MemberRegistry() {}
 
-    // Använd flera datatyper.
-    // Går använda metoden values för att enkelt få ut alla värden i memberList.
-    private Map<Integer, Member> memberList = new HashMap<>();
-    private int nextId = 1;
-
+    private Map<Long, Member> memberList = new HashMap<>();
 
     //Metoder
 
-        public Member createAndAddMember(String name, int statusLevel){
-        int id = nextId++;
-        Member member = new Member(id, name, statusLevel);
-        // Lite oklart om man lägger id och member i memberList när member just fått värdet från int id ?
-        memberList.put(id, member);
-        return member;
+    public void addMember(Member member) {memberList.put(member.getId(), member);
     }
-        // Hämtar alla medlemar till en lista för att arbeta med. perfekt för o göra metoder av.
-        public List<Member> listMembers(){
-        return new ArrayList<>(memberList.values());
+    public Member findById(long id){return memberList.get(id);}
+
+    public Member findByName(String name){
+        return memberList.values().stream().filter(member -> member.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
+    public List<Member> listAllMembers() {
+        return new ArrayList<>(this.memberList.values());
+    }
+
+
 
     }
 

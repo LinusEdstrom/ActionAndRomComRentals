@@ -1,27 +1,45 @@
 package com.Linus.entity;
 
+import java.util.UUID;
+
 public abstract class Item {
 
     //attribute
 
-    private String name;
-    private int price;
-
-    //constructors
-    //Ska inte vara nå items av items den är ju abtrakt, syntax error bip bop.
+    protected String id;
+    protected String title;
+    private boolean rented;
 
     public Item(){}
 
-    public Item(String name, int price){
-        this.name = name;
-        this.price = price;
+
+    public Item(String title) {
+        this.id = UUID.randomUUID().toString();
+        this.title = title;
+        this.rented = false;
     }
 
-    public String getName(){return name;}
-    public int getPrice(){return price;}
-    public void setName(String name){this.name = name;}
-    public void setPrice(int price){this.price = price;}
+    public String getId() {return id;}
+    public void setId(String id) {this.id = id;}
+
+    public String getTitle()
+    {return title;}
+
+    public boolean isRented() {return rented;}
+
+    public void rentOut(){rented = true;}
+
+    public void returnItem(){rented = false;}
+
+    public abstract double getPricePerDay();
+
+    @Override
+    public String toString()
+    {return title + " - " + (rented ? "Rented" : "Available");
+    }
+    }
 
 
 
-}
+
+

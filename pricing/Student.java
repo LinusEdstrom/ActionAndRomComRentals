@@ -1,4 +1,15 @@
 package com.Linus.pricing;
 
-public class Student {
+import com.Linus.entity.Member;
+
+public class Student implements PricePolicy {
+
+    public Student(){}
+
+    @Override
+    public double calculatePrice(Member member, double price, int days){
+        return price * days * 0.85;
+    }
+
+
 }
