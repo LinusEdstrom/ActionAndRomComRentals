@@ -7,8 +7,8 @@ public class Standard implements PricePolicy {
     public Standard() {}
 
     @Override
-    public double calculatePrice(Member member, double price, int days) {
-        return price * days;
+    public double calculatePrice(Member member, double basePrice, int days) {
+        return basePrice * days;
     }
 
 

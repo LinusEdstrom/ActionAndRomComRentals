@@ -16,7 +16,7 @@ public class Action extends Dvd {
     }
     // Den här ska nog bort
 
-        public double getPrice (){
+        public double getBasePrice (){
         return basePrice;
     }
     public int getLength(){return length;}

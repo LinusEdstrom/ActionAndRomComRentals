@@ -7,9 +7,8 @@ public class Premium implements PricePolicy {
     public Premium(){}
 
     @Override
-    public double calculatePrice(Member member, double price, int days) {
-        return price * days * 0.7;
+    public double calculatePrice(Member member, double basePrice, int days) {
+        return basePrice * days * 0.7;
     }
-
 
 }

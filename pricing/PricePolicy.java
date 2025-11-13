@@ -4,6 +4,6 @@ import com.Linus.entity.Member;
 
 public interface PricePolicy {
 
-    double calculatePrice(Member member, double price, int days);
+    double calculatePrice(Member member, double basePrice, int days);
 
 }

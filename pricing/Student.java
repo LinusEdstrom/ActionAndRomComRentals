@@ -7,8 +7,8 @@ public class Student implements PricePolicy {
     public Student(){}
 
     @Override
-    public double calculatePrice(Member member, double price, int days){
-        return price * days * 0.85;
+    public double calculatePrice(Member member, double basePrice, int days){
+        return basePrice * days * 0.85;
     }
 
 

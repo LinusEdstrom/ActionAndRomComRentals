@@ -170,7 +170,7 @@ public class Main {
     private static void fillActionList(RentalService rentalService) {
     rentalService.addAction ("WarZone", 38, 120, 18, 13);
     rentalService.addAction("BloodAndMoney", 28, 105, 4, 6);
-    rentalService.addAction("BackInOmaha", 38, 140, 28, 22);
+    rentalService.addAction("Kablamoh", 38, 140, 28, 22);
 }
 
     private static void addNewRomCom(Scanner scanner, RentalService rentalService) {

@@ -50,7 +50,7 @@ public class RentalService {
                 Rental rental = new Rental(member, item, days, totalPrice);
                 rentals.add(rental);
                 member.addRentalToHistory(rental);
-
+                System.out.println("Totalprice: " + totalPrice);
                 return rental;
             }
         }
