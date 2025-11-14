@@ -27,6 +27,7 @@ public class Main {
         boolean toMeny = true;
 
         while (toMeny) {
+            System.out.println("");
             System.out.println("Menu choices");
             System.out.println("");
             System.out.println("1. Add new member");
@@ -56,20 +57,16 @@ public class Main {
                     break;
                 case 2: searchMember(scanner, membershipService);
                     break;
-
                 case 3: changeStatusLevel(scanner, membershipService);
-
+                    break;
                 case 4: listAllMembers(membershipService);
                     break;
-
                 case 5: listAllDvds(rentalService);
                     break;
                 case 6: listAllAction(rentalService);
                     break;
-
                 case 7: listAllRomCom(rentalService);
                     break;
-
                 case 8: addNewAction(scanner, rentalService);
                     break;
                 case 9: addNewRomCom(scanner, rentalService);
@@ -88,13 +85,8 @@ public class Main {
                     break;
                     case 14:
                     totalRevenues(rentalService);
-
-
-
             }
-
         }
-
     }
 
     private static void rentDvd(Scanner scanner, MemberRegistry memberRegistry, RentalService rentalService) {
@@ -114,10 +106,7 @@ public class Main {
         Rental tryRental = rentalService.rentItem(rentMember, title, days);
         if (tryRental != null) {
             System.out.println(tryRental);
-        } /*else {
-            System.out.println("Rental not found");
         }
-        */
     }
 
     private static void returnDvd(Scanner scanner, RentalService rentalService) {
@@ -136,7 +125,7 @@ public class Main {
 
         private static void listAllMembers(MembershipService membershipService) {
         for (Member allMembers : membershipService.listAllMembers())
-            System.out.println(allMembers.getId() + " - " + allMembers.getName());
+            System.out.println(allMembers.getId() + " - " + allMembers.getName() + " - " + allMembers.getStatusLevel());
 
     }
 
@@ -236,67 +225,7 @@ public class Main {
         for(RomCom romCom : rentalService.listRomCom())
             System.out.println(romCom.getTitle());
     }
-    /*
-    private static void fillActionList(RentalService rentalService) {
-        rentalService.addAction(1,"Dvd", 38, "WarZone", "Awesome", 120, 18, 13);
-        rentalService.addAction(2,"Dvd", 38, "BloodAndMoney", "So and so", 105, 4, 6);
-        rentalService.addAction(3,"Dvd", 38, "BackInOmaha", "Epic", 140, 28, 22);
-    }
-    private static void fillRomComList(RentalService rentalService) {
-        rentalService.addRomCom(4,"Dvd", 38, "mr.Gingerbread", "So freakin cute", 162, 42, 1);
-        rentalService.addRomCom(5,"Dvd", 38, "Paris in spring", "Lovely", 205, 68, 3);
-        rentalService.addRomCom(6,"Dvd", 38, "Two boys in red", "Less is more", 184, 32, 2);
-    }
 
-        private static void addNewAction(Scanner scanner, RentalService rentalService) {
-
-            System.out.println("Item title");
-            String title = scanner.nextLine();
-            System.out.println("Item price");
-            Double price = double.parseDouble(scanner.nextLine());
-            System.out.println("Item length");
-            int length = Integer.parseInt(scanner.nextLine());
-            System.out.println("Item explosions");
-            int explosions = Integer.parseInt(scanner.nextLine());
-            System.out.println("Item coolOneliners");
-            int coolOneliners = Integer.parseInt(scanner.nextLine());
-            rentalService.addAction(title, price, length, explosions, coolOneliners);
-    }
-    private static void addNewRomCom(Scanner scanner, RentalService rentalService) {
-        RomCom romCom = new RomCom();
-        System.out.println("Item title");
-        String title = scanner.nextLine();
-        System.out.println("Item price");
-        Double price = scanner.nextDouble();
-        System.out.println("Item length");
-        int length = scanner.nextInt();
-        System.out.println("Item cheeziness");
-        romCom.setCheeziness(scanner.nextInt());
-        System.out.println("Item hunks");
-        romCom.setHunks(scanner.nextInt());
-        rentalService.addRomCom(romCom.getTitle(), romCom.getPrice(), romCom.getLength(), romCom.getCheeziness(), romCom.getHunks());
-    }
-            //Får bara fram Superklassen Items attribut här, vill ha tag i sub/sub title.
-
-        // Listor
-
-        private static void listAllDvds(RentalService rentalService){
-            rentalService.listDvds();
-            for (Dvd dvds : rentalService.listDvds())
-                System.out.println(dvds.getTitle());
-        }
-        private static void listAllAction(RentalService rentalService){
-            rentalService.listAction();
-            for(Action action : rentalService.listAction())
-                System.out.println(action.getTitle());
-        }
-        private static void listAllRomCom(RentalService rentalService){
-            rentalService.listRomCom();
-            for(RomCom romCom : rentalService.listRomCom())
-                System.out.println(romCom.getTitle());
-        }
-
-     */
 
 
 }

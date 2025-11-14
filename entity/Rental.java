@@ -18,7 +18,6 @@ public class Rental {
         this.member = member;
         this.item = item;
         this.rentalDate = LocalDate.now();
-        // Kolla det här
         this.returnDate = rentalDate.plusDays(days);
         this.totalPrice = totalPrice;
     }

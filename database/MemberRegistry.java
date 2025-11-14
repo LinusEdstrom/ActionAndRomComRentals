@@ -23,8 +23,6 @@ public class MemberRegistry {
         return new ArrayList<>(this.memberList.values());
     }
 
-
-
     }
 
 

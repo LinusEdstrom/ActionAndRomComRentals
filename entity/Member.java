@@ -52,12 +52,8 @@ public class Member {
 
     @Override
     public String toString() {
-        return "[" + id +"] " + name + " (" + statusLevel + " - " + history.size() + " rentals)";
-
-
+        return "[" + id +"] " + name + " (" + statusLevel + " - " + history.size() + " rentals  )";
     }
-
-
 
     }
 
