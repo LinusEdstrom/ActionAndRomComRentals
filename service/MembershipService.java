@@ -32,10 +32,12 @@ public class MembershipService {
         public Member changeStatus(String name, String newStatusLevel){
         Member changeStatusMember = memberRegistry.findByName(name);
         changeStatusMember.setStatusLevel(newStatusLevel);
+            System.out.println(changeStatusMember + " is now a " + changeStatusMember.getStatusLevel() + " member");
         return changeStatusMember;
 
 
         }
+            public Member findByName(String name) {return memberRegistry.findByName(name);}
         }
 
 

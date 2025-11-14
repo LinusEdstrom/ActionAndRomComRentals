@@ -45,9 +45,11 @@ public class Main {
             System.out.println("11.Return a movie");
             System.out.println("");
             System.out.println("12. Exit menu");
-            System.out.println("13. Sum revenues");
+            System.out.println("13. Rental history");
+            System.out.println("14. Sum revenues");
 
             int choice = scanner.nextInt();
+            scanner.nextLine();
 
             switch (choice) {
                 case 1: newMember(scanner, membershipService);
@@ -82,8 +84,12 @@ public class Main {
                     toMeny = false;
                     break;
                 case 13:
-                    returnDvd(scanner, rentalService);
+                    rentalHistory(scanner, membershipService, rentalService);
                     break;
+                    case 14:
+                    totalRevenues(rentalService);
+
+
 
             }
 
@@ -107,7 +113,7 @@ public class Main {
 
         Rental tryRental = rentalService.rentItem(rentMember, title, days);
         if (tryRental != null) {
-            System.out.println("Rented " +title);
+            System.out.println(tryRental);
         } /*else {
             System.out.println("Rental not found");
         }
@@ -130,7 +136,7 @@ public class Main {
 
         private static void listAllMembers(MembershipService membershipService) {
         for (Member allMembers : membershipService.listAllMembers())
-            System.out.println(allMembers.getName());
+            System.out.println(allMembers.getId() + " - " + allMembers.getName());
 
     }
 
@@ -151,6 +157,21 @@ public class Main {
         System.out.println("New statuslevel");
         String newStatusLevel = scanner.nextLine();
         membershipService.changeStatus(name, newStatusLevel);
+    }
+
+    private static void rentalHistory(Scanner scanner, MembershipService membershipService, RentalService rentalService) {
+        System.out.println("member name");
+        String name = scanner.nextLine();
+        Member historyMember = membershipService.findByName(name);
+        if (historyMember == null) {
+            System.out.println("Member not found");
+            return;
+        }
+        rentalService.printHistory(historyMember);
+    }
+
+        private static void totalRevenues(RentalService rentalService) {
+        System.out.println("the total revenues are " + rentalService.totalRevenue());
     }
 
     private static void addNewAction(Scanner scanner, RentalService rentalService) {

@@ -33,7 +33,7 @@ public class Rental {
     //Kolla det här
     @Override
     public String toString(){
-        return member.getName() +"rents"+ item.getTitle() + "until" + returnDate + totalPrice;
+        return member.getName() +" rents "+ item.getTitle() + " from " + rentalDate + " until " + returnDate;
     }
 
 }

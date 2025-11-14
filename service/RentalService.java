@@ -68,6 +68,17 @@ public class RentalService {
         }
             System.out.println("U rented this elsewhere");
         }
+            public void printHistory(Member member) {
+                System.out.println("Rental history for " + member.getName());
+                for (Rental rental : rentals) {
+                    System.out.println(rental);
+                }
+            }
+            /*public Member findMemberByName(String name){
+            for(Member historyMember : )
+            }
+
+             */
 
             //Funkar som for (Rental r : rentals) total += r.getTotalPrice
             public double totalRevenue() {
