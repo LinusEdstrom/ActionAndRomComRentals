@@ -86,6 +86,8 @@ public class Main {
                     case 14:
                     totalRevenues(rentalService);
             }
+            System.out.println("\nPress Enter for main menu");
+            scanner.nextLine();
         }
     }
 
@@ -152,12 +154,10 @@ public class Main {
         System.out.println("member name");
         String name = scanner.nextLine();
         Member historyMember = membershipService.findByName(name);
-        if (historyMember == null) {
-            System.out.println("Member not found");
-            return;
-        }
         rentalService.printHistory(historyMember);
     }
+
+
 
         private static void totalRevenues(RentalService rentalService) {
         System.out.println("the total revenues are " + rentalService.totalRevenue());

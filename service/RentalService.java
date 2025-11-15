@@ -69,7 +69,15 @@ public class RentalService {
             System.out.println("U rented this elsewhere");
         }
             public void printHistory(Member member) {
-                System.out.println("Rental history for " + member.getHistory());
+            List<Rental> memberHistory = member.getHistory();
+                System.out.println("Rental history for " + member.getName() + ":");
+
+                if (memberHistory.isEmpty()) {
+                    System.out.println("No history for this member");
+                    return;
+                } for (Rental rentalHistory : memberHistory) {
+                    System.out.println(rentalHistory);
+                }
 
             }
            /* public void printHistory(Member member) {
