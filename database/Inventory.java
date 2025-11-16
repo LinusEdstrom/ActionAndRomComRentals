@@ -10,19 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory  {
-
     private final List<Item> inventoryList = new ArrayList<>();
-
-        //constructors
-
-
-        //Metoder
-
-        public List<Item> listItems(){return new ArrayList<>(inventoryList);
-        }
-        // Funkar som Item item : invetoryList, for (item) if (!item.isRented) sout item.getTitle
-        public List<Item> listRentables(){return inventoryList.stream().filter(i-> !i.isRented()).toList();}
-
+    
         public Item findByTitle(String title){
             String search = title.trim();
             for(Item item : inventoryList) {
@@ -30,10 +19,6 @@ public class Inventory  {
                 return item;
         }
         return null;
-        }
-
-        public List<Item> findRentables(){
-            return inventoryList.stream().filter(i-> !i.isRented()).toList();
         }
 
         public Action createAndAddAction(String title, double price, int length, int explosions, int coolOneliners){
@@ -47,9 +32,6 @@ public class Inventory  {
             return romCom;
         }
 
-        public List<Item> getInventoryList() {
-        return inventoryList;
-    }
         public List<Dvd> dvdList() {
             List<Dvd> dvdList = new ArrayList<>();
             for (Item item : inventoryList) {

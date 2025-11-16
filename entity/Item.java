@@ -19,9 +19,6 @@ public abstract class Item {
         this.rented = false;
     }
 
-    public String getId() {return id;}
-    public void setId(String id) {this.id = id;}
-
     public String getTitle()
     {return title;}
 
@@ -32,11 +29,6 @@ public abstract class Item {
     public void returnItem(){rented = false;}
 
     public abstract double getPricePerDay();
-
-    @Override
-    public String toString()
-    {return title + " - " + (rented ? "Rented" : "Available");
-    }
     }
 
 

@@ -7,6 +7,8 @@ public class Dvd extends Item {
     protected double basePrice;
     protected int length;
 
+    //constructor
+
     public Dvd() {}
 
     public Dvd(String title, double basePrice, int length){
@@ -14,10 +16,8 @@ public class Dvd extends Item {
             this.basePrice = basePrice;
             this.length = length;
         }
-
         @Override
         public double getPricePerDay () {
             return basePrice;
         }
-
     }

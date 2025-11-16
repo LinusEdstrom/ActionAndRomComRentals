@@ -86,7 +86,7 @@ public class Main {
                     case 14:
                     totalRevenues(rentalService);
             }
-            System.out.println("\nPress Enter for main menu");
+            System.out.println("\n Press Enter for main menu");
             scanner.nextLine();
         }
     }
@@ -108,20 +108,20 @@ public class Main {
         Rental tryRental = rentalService.rentItem(rentMember, title, days);
         if (tryRental != null) {
             System.out.println(tryRental);
+        } else {
+            System.out.println("Rented elsewhere");
         }
     }
-
     private static void returnDvd(Scanner scanner, RentalService rentalService) {
-        scanner.nextLine();
         System.out.println("Titel: ");
         rentalService.returnItem(scanner.nextLine().trim());
     }
 
     private static void newMember(Scanner scanner, MembershipService membershipService) {
         System.out.println("member Name");
-        String name = scanner.next();
+        String name = scanner.nextLine();
         System.out.println("member Status");
-        String status = scanner.next();
+        String status = scanner.nextLine();
         membershipService.registerMember(name, status);
     }
 
@@ -133,7 +133,7 @@ public class Main {
 
     private static void searchMember(Scanner scanner, MembershipService membershipService) {
         System.out.println("member Name");
-        String name = scanner.next();
+        String name = scanner.nextLine();
         boolean exist = membershipService.lookForMember(name);
         if (exist) {
             System.out.println("Member exists");
@@ -156,9 +156,6 @@ public class Main {
         Member historyMember = membershipService.findByName(name);
         rentalService.printHistory(historyMember);
     }
-
-
-
         private static void totalRevenues(RentalService rentalService) {
         System.out.println("the total revenues are " + rentalService.totalRevenue());
     }
@@ -190,9 +187,9 @@ public class Main {
     double price = Double.parseDouble(scanner.nextLine());
     System.out.println("Item length");
     int length = Integer.parseInt(scanner.nextLine());
-    System.out.println("Item explosions");
+    System.out.println("Item cheeziness");
     int cheeziness = Integer.parseInt(scanner.nextLine());
-    System.out.println("Item coolOneliners");
+    System.out.println("Items number of hunks");
     int hunks = Integer.parseInt(scanner.nextLine());
     rentalService.addRomCom(title, price, length, cheeziness, hunks);
 }
@@ -209,12 +206,12 @@ public class Main {
         membershipService.registerMember("KentJesus", "student");
         membershipService.registerMember("Majken", "standard");
     }
-
     private static void listAllDvds(RentalService rentalService){
         rentalService.listDvds();
         for (Dvd dvds : rentalService.listDvds())
             System.out.println(dvds.getTitle());
     }
+
     private static void listAllAction(RentalService rentalService){
         rentalService.listAction();
         for(Action action : rentalService.listAction())

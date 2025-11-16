@@ -16,13 +16,19 @@ public class MemberRegistry {
     }
     public Member findById(long id){return memberList.get(id);}
 
-    public Member findByName(String name){
-        return memberList.values().stream().filter(member -> member.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+    public Member findByName(String name) {
+        if (name == null) return null; {System.out.println("Member not found");}
+        for (Member member :memberList.values()) {
+            if (member.getName().equalsIgnoreCase(name)) {
+                return member;
+            }
+        }
+        return null;
     }
+
     public List<Member> listAllMembers() {
         return new ArrayList<>(this.memberList.values());
     }
-
     }
 
 

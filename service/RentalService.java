@@ -50,15 +50,12 @@ public class RentalService {
                 Rental rental = new Rental(member, item, days, totalPrice);
                 rentals.add(rental);
                 member.addRentalToHistory(rental);
-                System.out.println("Totalprice: " + totalPrice);
+                System.out.println("Totalprice: " + String.format("%.2f", totalPrice));
                 return rental;
             }
         }
         public void returnItem(String title) {
         for (Rental rental : rentals) {
-
-            Item item = rental.getItem();
-            System.out.println("DEBUG -> Checking: " + item.getTitle() + ", rented=" + item.isRented());
 
             if (rental.getItem().getTitle().trim().equalsIgnoreCase(title.trim()) && rental.getItem().isRented()) {
                 rental.getItem().returnItem();
@@ -78,21 +75,7 @@ public class RentalService {
                 } for (Rental rentalHistory : memberHistory) {
                     System.out.println(rentalHistory);
                 }
-
             }
-           /* public void printHistory(Member member) {
-             System.out.println("Rental history for " + member.getName());
-                for (Rental rental : rentals) {
-                System.out.println(rental);
-              }
-             }
-            /*public Member findMemberByName(String name){
-            for(Member historyMember : )
-            }
-
-             */
-
-
             public double totalRevenue() {
             double total = 0.0;
             for (Rental rental : rentals) {
@@ -107,10 +90,6 @@ public class RentalService {
 
     public RomCom addRomCom(String title, double price, int length, int cheeziness, int hunks) {
         return inventory.createAndAddRomCom(title, price, length, cheeziness, hunks);
-    }
-
-    public List<Item> listItems() {
-        return new ArrayList<>(inventory.getInventoryList());
     }
 
     public List<Dvd> listDvds() {
